@@ -5,3 +5,5 @@ for (let i=0;i<152;i++){
         .then((response)=>response.json())
         .then (data => mostrarPokemon(data))
 }
+
+console.log("Hola")
