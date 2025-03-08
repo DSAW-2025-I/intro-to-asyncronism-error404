@@ -31,3 +31,5 @@
 | Calidad del código     | 1.5     |
 | Funcionalidad      | 1.5      |
 
+Samuel Guerrero Arcos 
+María José Palomino
