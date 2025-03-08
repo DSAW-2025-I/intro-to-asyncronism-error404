@@ -23,7 +23,7 @@
 }
 
 body {
-  background: url("./fondo.jpg") center/cover no-repeat fixed;
+  background: url("./assets/fondo.jpg") center/cover no-repeat fixed;
 }
 
 ul {
@@ -135,6 +135,7 @@ header {
 header img {
   width: 4.5%;
   height: auto;
+  margin-inline: -1%;
 }
 
 section {
