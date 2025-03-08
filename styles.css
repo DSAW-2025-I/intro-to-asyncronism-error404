@@ -23,12 +23,8 @@
 }
 
 body {
-<<<<<<< Updated upstream
-  background: url("./fondo.jpg") center/cover no-repeat fixed;
-=======
   background: url("./assets/fondo.jpg") center/cover no-repeat fixed;
   padding: 1%;
->>>>>>> Stashed changes
 }
 
 ul {
