@@ -24,21 +24,25 @@
 
 body {
   background: url("./assets/fondo.jpg") center/cover no-repeat fixed;
-<<<<<<< HEAD
-=======
-  padding: 1%;
->>>>>>> HTMLyCSS
+  font-family: inter;
 }
 
 ul {
+  scale:90% ;
   list-style: none;
-  display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  gap: 50% 5%;
-  justify-self: center;
-  justify-content: center;
-  justify-items: center;
+  display: flex;
+  flex-wrap: wrap; /* Permite que los elementos se ajusten a la línea siguiente */
+  justify-content: center; /* Centrar los elementos en el eje principal */
+  gap: 20px 50px; /* Espacio entre filas y columnas */
+  width: 100%;
+  max-width: 1100px; /* Evitar que se expanda demasiado */
+  margin: auto; /* Centrar la lista */
 }
+
+ul li {
+  max-width: calc(100% / auto-fit); /* Ajuste dinámico según el contenedor */
+}
+
 
 .btn-header {
   background-color: rgb(255, 255, 255);
@@ -126,20 +130,62 @@ button {
   cursor: pointer;
   transform: scale(1.5);
   margin-inline: 5px;
+  transition: 1s;
+}
+
+button:hover{
+  scale: 110%;
+  transition: 0.3s;
 }
 
 header {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 5%;
+  gap: 2%;
+  flex-wrap: wrap; /* Permite que los elementos se acomoden en pantallas pequeñas */
+  height: 100px;
 }
 
 header img {
   width: 4.5%;
   height: auto;
-  margin-inline: -1%;
+  min-width: 40px; /* Asegura que el logo no sea demasiado pequeño en móviles */
 }
+
+/* Responsividad */
+@media (max-width: 1024px) {
+  header img {
+    width: 6%; /* Ajusta el tamaño en pantallas medianas */
+    max-width: 70px;
+  }
+}
+
+@media (max-width: 768px) {
+  header {
+    gap: 2%;
+    padding: 8px;
+  }
+
+  header img {
+    width: 8%;
+    max-width: 60px;
+  }
+}
+
+@media (max-width: 480px) {
+  header {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+  }
+
+  header img {
+    width: 15%;
+    max-width: 50px;
+    }
+}
+
 
 section {
   padding: 2% 10%;
@@ -163,11 +209,14 @@ section {
   padding-block-end: 3%;
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: 0.5s;
 }
 
 .pokemon:hover {
   transform: translateY(-5px);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  scale:105% ;
+  transition: 0.5s;
 }
 
 .modal {
@@ -340,7 +389,7 @@ section {
 h1 {
   font-family: Sigmar, sans-serif;
   font-weight: 500;
-  transform: scale(1.75);
+  font-size: 300%;
   justify-self: center;
 }
 
@@ -378,41 +427,59 @@ p{
 }
 
 
-.search {
-  font-family: inter;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: #ffffff4f;
-  padding: 8px 12px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-  justify-self: center;
-  width: 25%;
-  margin-block: 1%;
-}
+.search {   
+  font-family: inter;   
+  display: flex;   
+  align-items: center;   
+  gap: 10px;   
+  background: #ffffff4f;   
+  padding: 8px 12px;   
+  border-radius: 8px;   
+  border: 1px solid #ddd;   
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);   
+  justify-self: center;   
+  width: 100%;   
+  max-width: 400px;   
+  margin: 1% auto; 
+}  
 
-.search label {
-  font-size: 16px;
-  color: #000000;
-  font-weight: 500;
-}
+.search label {   
+  font-size: 16px;   
+  color: #000000;   
+  font-weight: 500; 
+}  
 
-.search input {
-  flex: 1;
-  height: 15px;
-  padding: 8px;
-  font-size: 14px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  outline: none;
-  transition: all 0.3s ease-in-out;
-}
+.search input {   
+  flex: 1;   
+  height: 15px;   
+  padding: 8px;   
+  font-size: 14px;   
+  border: 1px solid #ccc;   
+  border-radius: 6px;   
+  outline: none;   
+  transition: all 0.3s ease-in-out; 
+}  
 
-.search input:focus {
-  border-color: #00a2ff;
-  box-shadow: 0 0 5px rgba(6, 0, 58, 0.548);
+.search input:focus {   
+  border-color: #00a2ff;   
+  box-shadow: 0 0 5px rgba(6, 0, 58, 0.548); 
+}  
+
+/* Responsividad */
+@media (max-width: 600px) {
+  .search {
+    width: 90%;
+    padding: 6px 10px;
+  }
+
+  .search label {
+    font-size: 14px;
+  }
+
+  .search input {
+    font-size: 12px;
+    padding: 6px;
+  }
 }
 
 .filtros-container {
