@@ -1,13 +1,37 @@
 const listaPokemon = document.querySelector("#listaPokemon");
 let URL = "https://pokeapi.co/api/v2/pokemon/";
+let SPECIES_URL = "https://pokeapi.co/api/v2/pokemon-species/";
+let EVOLUTION_URL = "https://pokeapi.co/api/v2/evolution-chain/";
 let pokemons = [];
 
 const obtenerPokemon = async () => {
     for (let i = 1; i <= 1025; i++) {
-        const response = await fetch(URL + i);
-        const data = await response.json();
-        pokemons.push(data);
-        mostrarPokemon(data);
+        try {
+            // Endpoint 1: Basic Pokemon data
+            const pokemonResponse = await fetch(URL + i);
+            const pokemonData = await pokemonResponse.json();
+            
+            // Endpoint 2: Species data
+            const speciesResponse = await fetch(SPECIES_URL + i);
+            const speciesData = await speciesResponse.json();
+            
+            // Endpoint 3: Evolution chain
+            const evolutionId = speciesData.evolution_chain.url.split('/').slice(-2)[0];
+            const evolutionResponse = await fetch(EVOLUTION_URL + evolutionId);
+            const evolutionData = await evolutionResponse.json();
+
+            // Combine all data
+            const combinedData = {
+                ...pokemonData,
+                species: speciesData,
+                evolution: evolutionData
+            };
+
+            pokemons.push(combinedData);
+            mostrarPokemon(combinedData);
+        } catch (error) {
+            console.error(`Error fetching Pokemon ${i}:`, error);
+        }
     }
 };
 
@@ -40,8 +64,15 @@ const mostrarPokemon = (data) => {
         </div>
         <div class="stats-modal" style="display: none;">
             <div class="modal-content">
-                <h3>Base Stats</h3>
+                <h3 style="text-align: center; margin-bottom: 20px;">Base Stats</h3>
                 ${statsHTML}
+                <div class="stat-row">
+                    <span class="stat-name">HABITAT</span>
+                    <span class="stat-value">${data.species.habitat ? data.species.habitat.name.toUpperCase() : 'UNKNOWN'}</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-value">${data.species.generation.name.toUpperCase()}</span>
+                </div>
                 <button class="close-modal">Close</button>
             </div>
         </div>
