@@ -16,6 +16,13 @@ const mostrarPokemon = (data) => {
         <p class="${type.type.name} type">${type.type.name.toUpperCase()}</p>    
     `).join('');
 
+    let statsHTML = data.stats.map(stat => `
+        <div class="stat-row">
+            <span class="stat-name">${stat.stat.name.toUpperCase()}</span>
+            <span class="stat-value">${stat.base_stat}</span>
+        </div>
+    `).join('');
+
     const div = document.createElement("div");
     div.classList.add("pokemon");
     div.innerHTML = `
@@ -25,13 +32,30 @@ const mostrarPokemon = (data) => {
           <h3>#${data.id}</h3>
         </span>
         <div class="types">
-        ${tipos}
+            ${tipos}
         </div>
         <div class="pokemon-stats">
           <p class="stat" style="margin-bottom: 0;">${data.height / 10} M</p>
           <p class="stat">${data.weight / 10} KG</p>
         </div>
+        <div class="stats-modal" style="display: none;">
+            <div class="modal-content">
+                <h3>Base Stats</h3>
+                ${statsHTML}
+                <button class="close-modal">Close</button>
+            </div>
+        </div>
     `;
+    
+    // Add click event listener to the div
+    div.addEventListener('click', (e) => {
+        if (e.target.classList.contains('close-modal')) {
+            div.querySelector('.stats-modal').style.display = 'none';
+        } else {
+            div.querySelector('.stats-modal').style.display = 'flex';
+        }
+    });
+    
     listaPokemon.append(div);
 };
 
