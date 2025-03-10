@@ -8,20 +8,26 @@
   <link rel="stylesheet" href="./styles.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="icon" href="./assets/favicon-32x32.png" />
   <link href="https://fonts.googleapis.com/css2?family=Sigmar&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet" />
 </head>
 
 <body>
   <header>
+<<<<<<< HEAD
     <img src="./assets/logo.png" alt="logo" style="scale: 200%;">
     <img src="./assets/Poke_Ball.webp" alt="Poke_Ball" />
+=======
+    <h1>Poké-Dex</h1>
+    <img src="./assets/Poke_Ball.webp" alt="logo"/>
+>>>>>>> HTMLyCSS
   </header>
 
   <div class="search">
-    <span>Buscar:</span>
-    <input type="text" style="height: 15px; padding: 5px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
-  </div>
+    <label for="search-input">Buscar Pokémon</label>
+    <input type="text" id="search-input" placeholder="Nombre / Número de pokémon">
+</div>
 
   <span>Filtros</span>
   <ul class="nav-list">
@@ -45,9 +51,6 @@
     <li class="nav-item"><button class="btn btn-header steel" id="steel">Steel</button></li>
     <li class="nav-item"><button class="btn btn-header fairy" id="fairy">Fairy</button></li>
   </ul>
-
-
-
 
   <section>
     <div class="parent" id="listaPokemon">
