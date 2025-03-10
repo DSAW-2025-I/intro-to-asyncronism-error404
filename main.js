@@ -37,33 +37,89 @@ const mostrarPokemon = (data) => {
 
 document.addEventListener("DOMContentLoaded", () => {
     const searchInput = document.getElementById("search-input");
+    const botonesFiltro = document.querySelectorAll(".btn-header");
+    const searchContainer = document.querySelector(".search");
+    let tiposSeleccionados = new Set();
 
-    searchInput.addEventListener("input", () => {
-        const searchValue = searchInput.value.toLowerCase();
-        const filteredPokemons = pokemons.filter(
-            (pokemon) =>
-                pokemon.name.toLowerCase().includes(searchValue) ||
-                pokemon.id.toString().includes(searchValue)
-        );
+    // Crear un contenedor para los filtros seleccionados
+    const filtrosContainer = document.createElement('div');
+    filtrosContainer.classList.add('filtros-container');
+    searchContainer.insertBefore(filtrosContainer, searchInput);
 
+    const actualizarBarraBusqueda = () => {
+        // Limpiar los botones de filtro existentes
+        filtrosContainer.innerHTML = '';
+
+        // Crear y añadir nuevos botones de filtro
+        Array.from(tiposSeleccionados).forEach(tipo => {
+            const filtroBtn = document.createElement('button');
+            filtroBtn.classList.add('filtro-seleccionado', tipo);
+            filtroBtn.innerHTML = `
+                ${tipo.toUpperCase()}
+                <span class="remove-filter">×</span>
+            `;
+            
+            // Añadir evento para eliminar el filtro
+            filtroBtn.querySelector('.remove-filter').addEventListener('click', (e) => {
+                e.stopPropagation();
+                tiposSeleccionados.delete(tipo);
+                actualizarBarraBusqueda();
+                aplicarFiltros();
+            });
+
+            filtrosContainer.appendChild(filtroBtn);
+        });
+    };
+
+    // Función para aplicar todos los filtros (tipo y texto)
+    const aplicarFiltros = () => {
+        // Primero filtramos por tipo
+        let pokemonsFiltrados = pokemons;
+        
+        if (tiposSeleccionados.size > 0) {
+            pokemonsFiltrados = pokemons.filter((pokemon) =>
+                Array.from(tiposSeleccionados).every((tipoSeleccionado) =>
+                    pokemon.types.some((t) => t.type.name === tipoSeleccionado)
+                )
+            );
+        }
+        
+        // Luego filtramos por texto de búsqueda
+        const searchValue = searchInput.value.toLowerCase().trim();
+        if (searchValue) {
+            pokemonsFiltrados = pokemonsFiltrados.filter(
+                (pokemon) =>
+                    pokemon.name.toLowerCase().includes(searchValue) ||
+                    pokemon.id.toString().includes(searchValue)
+            );
+        }
+
+        // Mostramos los resultados
         listaPokemon.innerHTML = "";
-        filteredPokemons.forEach(mostrarPokemon);
+        pokemonsFiltrados.forEach(mostrarPokemon);
+    };
+
+    // Evento para la búsqueda por texto
+    searchInput.addEventListener("input", () => {
+        aplicarFiltros();
     });
 
-    const botonesFiltro = document.querySelectorAll(".btn-header");
-    
+    // Evento para los botones de filtro por tipo
     botonesFiltro.forEach((boton) => {
         boton.addEventListener("click", () => {
             const tipo = boton.id;
             if (tipo === "ver-todos") {
-                listaPokemon.innerHTML = "";
-                pokemons.forEach(mostrarPokemon);
+                tiposSeleccionados.clear();
+                actualizarBarraBusqueda();
+                aplicarFiltros();
             } else {
-                const filtrados = pokemons.filter((pokemon) => 
-                    pokemon.types.some((t) => t.type.name === tipo)
-                );
-                listaPokemon.innerHTML = "";
-                filtrados.forEach(mostrarPokemon);
+                if (tiposSeleccionados.has(tipo)) {
+                    tiposSeleccionados.delete(tipo);
+                } else {
+                    tiposSeleccionados.add(tipo);
+                }
+                actualizarBarraBusqueda();
+                aplicarFiltros();
             }
         });
     });
