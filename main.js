@@ -58,7 +58,7 @@ const mostrarDetallesPokemon = (data) => {
     
     const abilities = data.abilities.map(ability => 
         `<span class="ability">${ability.ability.name.toUpperCase()}</span>`
-    ).join(', '); //REVISAAAAR
+    ).join('<br>'); //REVISAAAAR
     
     modal.innerHTML = `
         <div class="modal-content">
@@ -84,8 +84,9 @@ const mostrarDetallesPokemon = (data) => {
                         <h4>Habilidades</h4>
                         <p>${abilities}</p>
                     </div>
-                    <div class="modal-section">
-                        <h4>Dimensiones</h4>
+                    <h4 class="tittle">Dimensiones</h4>
+                    <div class="modal-dimentions">
+                        
                         <p>Altura: ${data.height / 10} m</p>
                         <p>Peso: ${data.weight / 10} kg</p>
                     </div>
