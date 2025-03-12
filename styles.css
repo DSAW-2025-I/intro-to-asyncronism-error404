@@ -1,4 +1,4 @@
-  :root {
+:root {
     --clr-black: #1c1c1c;
     --clr-gray: #ececec;
     --clr-white: #f7f7f7;
@@ -528,4 +528,9 @@
   .remove-filter:hover {
     background-color: rgba(0, 0, 0, 0.1);
     border-radius: 50%;
+  }
+
+  .btn-header.disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
   }
