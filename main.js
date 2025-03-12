@@ -67,7 +67,7 @@ const mostrarDetallesPokemon = (data) => {
                 <h2>${data.name.toUpperCase()}</h2>
                 <h3>#${data.id}</h3>
             </div>
-            <div class="modal-body">
+             <div class="modal-body">
                 <div class="modal-image">
                     <img src="${data.sprites.other["official-artwork"].front_default}" alt="${data.name}" />
                 </div>
@@ -130,15 +130,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const botonesFiltro = document.querySelectorAll(".btn-header");
     const searchContainer = document.querySelector(".search");
     let tiposSeleccionados = new Set();
+    const MAX_FILTROS = 2; // Definimos el máximo de filtros permitidos
 
     const filtrosContainer = document.createElement('div');
     filtrosContainer.classList.add('filtros-container');
     searchContainer.insertBefore(filtrosContainer, searchInput);
 
     const actualizarBarraBusqueda = () => {
-
         filtrosContainer.innerHTML = '';
-
 
         Array.from(tiposSeleccionados).forEach(tipo => {
             const filtroBtn = document.createElement('button');
@@ -148,12 +147,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 <span class="remove-filter">×</span>
             `;
             
-      
             filtroBtn.querySelector('.remove-filter').addEventListener('click', (e) => {
                 e.stopPropagation();
                 tiposSeleccionados.delete(tipo);
                 actualizarBarraBusqueda();
                 aplicarFiltros();
+                // Habilitamos todos los botones cuando se elimina un filtro
+                botonesFiltro.forEach(btn => {
+                    if (btn.id !== "ver-todos") {
+                        btn.disabled = false;
+                        btn.classList.remove('disabled');
+                    }
+                });
             });
 
             filtrosContainer.appendChild(filtroBtn);
@@ -199,11 +204,37 @@ document.addEventListener("DOMContentLoaded", () => {
                 tiposSeleccionados.clear();
                 actualizarBarraBusqueda();
                 aplicarFiltros();
+                // Habilitamos todos los botones cuando se limpian los filtros
+                botonesFiltro.forEach(btn => {
+                    if (btn.id !== "ver-todos") {
+                        btn.disabled = false;
+                        btn.classList.remove('disabled');
+                    }
+                });
             } else {
                 if (tiposSeleccionados.has(tipo)) {
                     tiposSeleccionados.delete(tipo);
+                    // Habilitamos todos los botones cuando se elimina un filtro
+                    botonesFiltro.forEach(btn => {
+                        if (btn.id !== "ver-todos") {
+                            btn.disabled = false;
+                            btn.classList.remove('disabled');
+                        }
+                    });
                 } else {
-                    tiposSeleccionados.add(tipo);
+                    // Verificamos si ya tenemos el máximo de filtros
+                    if (tiposSeleccionados.size < MAX_FILTROS) {
+                        tiposSeleccionados.add(tipo);
+                        // Si llegamos al máximo después de agregar, deshabilitamos los demás botones
+                        if (tiposSeleccionados.size === MAX_FILTROS) {
+                            botonesFiltro.forEach(btn => {
+                                if (btn.id !== "ver-todos" && !tiposSeleccionados.has(btn.id)) {
+                                    btn.disabled = true;
+                                    btn.classList.add('disabled');
+                                }
+                            });
+                        }
+                    }
                 }
                 actualizarBarraBusqueda();
                 aplicarFiltros();
