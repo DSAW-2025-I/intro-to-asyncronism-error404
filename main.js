@@ -190,7 +190,20 @@ document.addEventListener("DOMContentLoaded", () => {
         }
        
         listaPokemon.innerHTML = "";
-        pokemonsFiltrados.forEach(mostrarPokemon);
+        
+        if (pokemonsFiltrados.length === 0) {
+            // Mostrar mensaje cuando no hay resultados
+            const noResultsMessage = document.createElement("div");
+            noResultsMessage.classList.add("no-results-message");
+            noResultsMessage.innerHTML = `
+                <h3>No se encontraron Pokémon con los filtros seleccionados</h3>
+                <p>Intenta con otros filtros o limpia la búsqueda</p>
+            `;
+            listaPokemon.appendChild(noResultsMessage);
+        } else {
+            // Mostrar los pokémon filtrados
+            pokemonsFiltrados.forEach(mostrarPokemon);
+        }
     };
 
 
