@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Poke Wiki</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="icon" href="./assets/favicon-32x32.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Sigmar&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+  <header>
+    <img src="./assets/logo.png" alt="logo" style="scale: 200%;">
+    <img src="./assets/Poke_Ball.webp" alt="Poke_Ball" />
+  </header>
+
+  <div class="search">
+    <label for="search-input">Buscar Pokémon</label>
+    <input type="text" id="search-input" placeholder="Nombre / Número de pokémon">
+</div>
+
+  <span style="margin-bottom: 15px;">Filtros</span>
+  <ul class="nav-list">
+    <li class="nav-item"><button style="width: 101%;" class="btn btn-header" id="ver-todos">Ver todos</button></li>
+    <li class="nav-item"><button class="btn btn-header normal" id="normal">Normal</button></li>
+    <li class="nav-item"><button class="btn btn-header fire" id="fire">Fire</button></li>
+    <li class="nav-item"><button class="btn btn-header water" id="water">Water</button></li>
+    <li class="nav-item"><button class="btn btn-header grass" id="grass">Grass</button></li>
+    <li class="nav-item"><button class="btn btn-header electric" id="electric">Electric</button></li>
+    <li class="nav-item"><button class="btn btn-header ice" id="ice">Ice</button></li>
+    <li class="nav-item"><button class="btn btn-header fighting" id="fighting">Fighting</button></li>
+    <li class="nav-item"><button class="btn btn-header poison" id="poison">Poison</button></li>
+    <li class="nav-item"><button class="btn btn-header ground" id="ground">Ground</button></li>
+    <li class="nav-item"><button class="btn btn-header flying" id="flying">Flying</button></li>
+    <li class="nav-item"><button class="btn btn-header psychic" id="psychic">Psychic</button></li>
+    <li class="nav-item"><button class="btn btn-header bug" id="bug">Bug</button></li>
+    <li class="nav-item"><button class="btn btn-header rock" id="rock">Rock</button></li>
+    <li class="nav-item"><button class="btn btn-header ghost" id="ghost">Ghost</button></li>
+    <li class="nav-item"><button class="btn btn-header dark" id="dark">Dark</button></li>
+    <li class="nav-item"><button class="btn btn-header dragon" id="dragon">Dragon</button></li>
+    <li class="nav-item"><button class="btn btn-header steel" id="steel">Steel</button></li>
+    <li class="nav-item"><button class="btn btn-header fairy" id="fairy">Fairy</button></li>
+  </ul>
+
+  <section>
+    <div class="parent" id="listaPokemon">
+      
+    </div>
+  </section>
+  <script src="./main.js"></script>
+</body>
+
+</html>
